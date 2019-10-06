@@ -69,13 +69,14 @@ export class AppComponent {
   public lastDayContract: string;
   public lastDayCalculated: string;
   public daysRemaining: number;
+  public now = moment();
   private readonly dateFormat = "DD.MM.YYYY";
   private readonly lastDay = "2023-09-30T12:00:00+00:00";
   private readonly hoursPerDay = 7;
-  private readonly now = moment();
 
   constructor() {
     let lastDay;
+    this.now.utc().hours(12).minutes(0).seconds(0).milliseconds(0);
     lastDay = this.calculateLastDay();
     this.calculateDaysRemaining(lastDay);
   }
@@ -85,7 +86,6 @@ export class AppComponent {
     let isHoliday: boolean;
     let hoursFree = this.hoursLongTermInitial + this.daysVacation * 7;
 
-    this.now.utc().hours(12).minutes(0).seconds(0).milliseconds(0);
     console.log(this.now);
     lastDay = moment(this.lastDay);
     this.lastDayContract = lastDay.format(this.dateFormat);
