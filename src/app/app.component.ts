@@ -77,8 +77,9 @@ export class AppComponent {
   constructor() {
     let lastDay;
     this.now.utc().hours(12).minutes(0).seconds(0).milliseconds(0);
-    lastDay = this.calculateLastDay();
-    this.calculateDaysRemaining(lastDay);
+    // lastDay = this.calculateLastDay();
+    this.lastDayCalculated = lastDay.format(this.dateFormat);
+    // this.calculateDaysRemaining(lastDay);
   }
 
   private calculateLastDay() {
@@ -107,15 +108,16 @@ export class AppComponent {
       lastDay.add(-1, "days");
       console.log(lastDay, hoursFree);
     }
-    this.lastDayCalculated = lastDay.format(this.dateFormat);
+
     return lastDay;
   }
 
   private calculateDaysRemaining(lastDay) {
-    let currentDay = this.now;
+    let currentDay = moment(this.now);
     this.daysRemaining = 0;
     while (currentDay.isBefore(lastDay))
       this.daysRemaining++;
       currentDay.add(1, "days");
+      console.log(currentDay);
   }
 }
