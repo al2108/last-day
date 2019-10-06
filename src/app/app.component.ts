@@ -65,7 +65,8 @@ const holidays = [
 })
 export class AppComponent {
   public hoursLongTermInitial = 500;
-  public daysVacation = (30 / 12) * 9;
+  public daysVacation2023 = (30 / 12) * 9;
+  public daysVacationBefore2023 = 10 + 30 + 30 + 30;
   public lastDayContract: string;
   public lastDayCalculated: string;
   public today: string;
@@ -81,13 +82,12 @@ export class AppComponent {
     this.today = this.now.format(this.dateFormat);
     lastDay = this.calculateLastDay();
     this.lastDayCalculated = lastDay.format(this.dateFormat);
-    this.calculateDaysRemaining(lastDay);
-  }
+    this.calculateDaysRemaining(lastDay);  }
 
   private calculateLastDay() {
     let lastDay;
     let isHoliday: boolean;
-    let hoursFree = this.hoursLongTermInitial + this.daysVacation * 7;
+    let hoursFree = this.hoursLongTermInitial + this.daysVacation2023 * 7;
 
     console.log(this.now);
     lastDay = moment(this.lastDay);
@@ -115,14 +115,37 @@ export class AppComponent {
   }
 
   private calculateDaysRemaining(lastDay) {
+    let isFreeDay: boolean;
     let currentDay = moment(this.now);
+    let vacation = this.daysVacationBefore2023;
+
     this.daysRemaining = 0;
     console.log(currentDay, ' -> ', lastDay);
-    return;
-    while (currentDay.isBefore(lastDay))
-      this.daysRemaining++;
-      currentDay.add(1, "months");
-      console.log(currentDay);
-      return;
+    while (currentDay.isBefore(lastDay)) {
+      isFreeDay = false;
+      if ((currentDay.day() === 0) || (currentDay.day() === 6)) {
+        isFreeDay = true;
+      }
+      if (! isFreeDay) {
+        for (let holiday of holidays) {
+            if (currentDay.isSame(holiday, "day")) {
+              // this is a holiday
+              isFreeDay = true;
+              console.log("found holiday: ", currentDay);
+            }
+          }
+      }
+      if (!isFreeDay) {
+        if (vacation > 0) {
+          vacation--;
+          isFreeDay = true;
+        }
+      }
+      if (!isFreeDay) {
+        this.daysRemaining++;
+      }
+      currentDay.add(1, "days");
+    }
+      console.log(currentDay, lastDay, currentDay.isBefore(lastDay));
   }
 }
