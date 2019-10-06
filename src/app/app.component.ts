@@ -118,6 +118,7 @@ export class AppComponent {
     let currentDay = moment(this.now);
     this.daysRemaining = 0;
     console.log(currentDay, ' -> ', lastDay);
+    return;
     while (currentDay.isBefore(lastDay))
       this.daysRemaining++;
       currentDay.add(1, "months");
