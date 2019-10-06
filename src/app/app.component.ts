@@ -81,7 +81,7 @@ export class AppComponent {
     this.today = this.now.format(this.dateFormat);
     lastDay = this.calculateLastDay();
     this.lastDayCalculated = lastDay.format(this.dateFormat);
-    //this.calculateDaysRemaining(lastDay);
+    this.calculateDaysRemaining(lastDay);
   }
 
   private calculateLastDay() {
@@ -117,10 +117,11 @@ export class AppComponent {
   private calculateDaysRemaining(lastDay) {
     let currentDay = moment(this.now);
     this.daysRemaining = 0;
-    return;
+    console.log(currentDay, ' -> ', lastDay);
     while (currentDay.isBefore(lastDay))
       this.daysRemaining++;
-      currentDay.add(1, "days");
+      currentDay.add(1, "months");
       console.log(currentDay);
+      return;
   }
 }
