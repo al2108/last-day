@@ -68,8 +68,9 @@ export class AppComponent {
   public daysVacation = (30 / 12) * 9;
   public lastDayContract: string;
   public lastDayCalculated: string;
+  public today: string;
   public daysRemaining: number;
-  public now = moment();
+  private readonly now = moment();
   private readonly dateFormat = "DD.MM.YYYY";
   private readonly lastDay = "2023-09-30T12:00:00+00:00";
   private readonly hoursPerDay = 7;
@@ -77,9 +78,10 @@ export class AppComponent {
   constructor() {
     let lastDay;
     this.now.utc().hours(12).minutes(0).seconds(0).milliseconds(0);
-    // lastDay = this.calculateLastDay();
+    this.today = this.now.format(this.dateFormat);
+    lastDay = this.calculateLastDay();
     this.lastDayCalculated = lastDay.format(this.dateFormat);
-    // this.calculateDaysRemaining(lastDay);
+    //this.calculateDaysRemaining(lastDay);
   }
 
   private calculateLastDay() {
@@ -106,7 +108,7 @@ export class AppComponent {
         }
       }
       lastDay.add(-1, "days");
-      console.log(lastDay, hoursFree);
+      // console.log(lastDay, hoursFree);
     }
 
     return lastDay;
@@ -115,6 +117,7 @@ export class AppComponent {
   private calculateDaysRemaining(lastDay) {
     let currentDay = moment(this.now);
     this.daysRemaining = 0;
+    return;
     while (currentDay.isBefore(lastDay))
       this.daysRemaining++;
       currentDay.add(1, "days");
