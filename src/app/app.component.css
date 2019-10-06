@@ -1,23 +1,39 @@
 :host {
+  font-family: Arial;
   display: grid;
-  grid-template-columns: 200px auto;
+  grid-template-columns: 200px 100px;
+  grid-template-rows: repeat(4, 25px) repeat(4, 30px);
+  grid-row-gap: 10px;
+  grid-column-gap: 20px;
+  align-items: center;
+  justify-items: center;
+
 }
 
+
 p {
-  font-family: Arial;
+  grid-column: 2;
+  justify-self: start;
+
+}
+
+label {
+  grid-column: 1;
+  justify-self: end;
+
 }
 
 input {
   grid-column: 2;
-  padding: 5px;
-  margin-left: 10px;
+  padding: 4px;
   font-size: 100%;
   width: 100px;
   border-radius: 5px;
 }
 
 button {
-  grid-column: 1;
+  grid-column: 2;
+  justify-self: end;
   color: #fff !important;
   font-size: 100%;
   text-transform: uppercase;

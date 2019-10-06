@@ -1,16 +1,15 @@
-<p>Today: {{today}}</p>
-<p>Last Day: {{lastDayContract}}</p>
-<p>Last Day calculated: {{lastDayCalculated}}</p>
-<p>Days remaining: {{daysRemaining}}</p>
+<label>Today:</label><p>{{today}}</p>
+<label>Last Day:</label><p>{{lastDayContract}}</p>
+<label>Last Day calculated:</label><p>{{lastDayCalculated}}</p>
+<label>Days remaining:</label><p>{{daysRemaining}}</p>
 
-<p>Long Term hours:
+<label>Long Term hours:</label>
   <input type='number' [(ngModel)]="hoursLongTermInitial" (ngModelChange)="onModelChange()"/>
-</p>
-<p>Vacation days before 2023:
+
+<label>Vacation days before 2023:</label>
   <input type='number' [(ngModel)]="daysVacationBefore2023" (ngModelChange)="onModelChange()"/>
-</p>
-<p>Vacation days 2023:
+
+<label>Vacation days 2023:</label>
   <input type='number' [(ngModel)]="daysVacation2023" (ngModelChange)="onModelChange()"/>
-</p>
-<br>
+
 <button (click)="onReset()">Reset</button>
