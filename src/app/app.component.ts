@@ -1,4 +1,6 @@
 import { Component } from "@angular/core";
+import { Subject, Observable } from "rxjs";
+import { debounceTime, distinctUntilChanged} from "rxjs/operators"; 
 const moment = require("moment");
 
 const holidays = [
@@ -64,32 +66,55 @@ const holidays = [
   styleUrls: ["./app.component.css"]
 })
 export class AppComponent {
-  public hoursLongTermInitial = 500;
-  public daysVacation2023 = (30 / 12) * 9;
-  public daysVacationBefore2023 = 10 + 30 + 30 + 30;
+  public hoursLongTermInitial: number;
+  public daysVacation2023: number;
+  public daysVacationBefore2023: number;
   public lastDayContract: string;
   public lastDayCalculated: string;
   public today: string;
   public daysRemaining: number;
-  private readonly now = moment();
+  private now;
+  private modelChanged: Subject<any>;
   private readonly dateFormat = "DD.MM.YYYY";
   private readonly lastDay = "2023-09-30T12:00:00+00:00";
   private readonly hoursPerDay = 7;
 
   constructor() {
+    this.onReset();
+    this.modelChanged = new Subject();
+    this.modelChanged
+      .pipe(
+        debounceTime(500))
+      .subscribe(() => {
+        this.recalculate();
+      })
+  }
+
+  public onReset() {
+    this.hoursLongTermInitial = 500;
+    this.daysVacation2023 = (30 / 12) * 9;
+    this.daysVacationBefore2023 = 10 + 30 + 30 + 30;
+    this.recalculate();
+  }
+
+  public onModelChange() {
+    this.modelChanged.next();
+  }
+
+  private recalculate() {
     let lastDay;
-    this.now.utc().hours(12).minutes(0).seconds(0).milliseconds(0);
+    this.now = moment().utc().hours(12).minutes(0).seconds(0).milliseconds(0);
     this.today = this.now.format(this.dateFormat);
     lastDay = this.calculateLastDay();
     this.lastDayCalculated = lastDay.format(this.dateFormat);
-    this.calculateDaysRemaining(lastDay);  }
-
+    this.calculateDaysRemaining(lastDay);    
+  }
+  
   private calculateLastDay() {
     let lastDay;
     let isHoliday: boolean;
     let hoursFree = this.hoursLongTermInitial + this.daysVacation2023 * 7;
 
-    console.log(this.now);
     lastDay = moment(this.lastDay);
     this.lastDayContract = lastDay.format(this.dateFormat);
     while (hoursFree > 0) {
@@ -100,7 +125,7 @@ export class AppComponent {
           if (lastDay.isSame(holiday, "day")) {
             // this is a holiday
             isHoliday = true;
-            console.log("found holiday: ", lastDay);
+            // console.log("found holiday: ", lastDay);
           }
         }
         if (!isHoliday) {
@@ -120,7 +145,7 @@ export class AppComponent {
     let vacation = this.daysVacationBefore2023;
 
     this.daysRemaining = 0;
-    console.log(currentDay, ' -> ', lastDay);
+    // console.log(currentDay, ' -> ', lastDay);
     while (currentDay.isBefore(lastDay)) {
       isFreeDay = false;
       if ((currentDay.day() === 0) || (currentDay.day() === 6)) {
@@ -131,7 +156,7 @@ export class AppComponent {
             if (currentDay.isSame(holiday, "day")) {
               // this is a holiday
               isFreeDay = true;
-              console.log("found holiday: ", currentDay);
+              // console.log("found holiday: ", currentDay);
             }
           }
       }
@@ -146,6 +171,6 @@ export class AppComponent {
       }
       currentDay.add(1, "days");
     }
-      console.log(currentDay, lastDay, currentDay.isBefore(lastDay));
+    // console.log(currentDay, lastDay, currentDay.isBefore(lastDay));
   }
 }
