@@ -137,10 +137,10 @@ export class AppComponent {
       lastDay.add(-1, "days");
       // console.log(lastDay, hoursFree);
     }
-
     while (lastDay.day() === 0 || lastDay.day() === 6) {
       lastDay.add(-1, "days");
     }
+    
     return lastDay;
   }
 
