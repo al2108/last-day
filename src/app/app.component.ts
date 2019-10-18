@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
 import { Subject, Observable } from "rxjs";
-import { debounceTime, distinctUntilChanged} from "rxjs/operators"; 
+import { debounceTime, distinctUntilChanged } from "rxjs/operators";
 const moment = require("moment");
 
 const holidays = [
@@ -82,16 +82,13 @@ export class AppComponent {
   constructor() {
     this.onReset();
     this.modelChanged = new Subject();
-    this.modelChanged
-      .pipe(
-        debounceTime(500))
-      .subscribe(() => {
-        this.recalculate();
-      })
+    this.modelChanged.pipe(debounceTime(500)).subscribe(() => {
+      this.recalculate();
+    });
   }
 
   public onReset() {
-    this.hoursLongTermInitial = 500;
+    this.hoursLongTermInitial = 520;
     this.daysVacation2023 = (30 / 12) * 9;
     this.daysVacationBefore2023 = 10 + 30 + 30 + 30;
     this.recalculate();
@@ -103,13 +100,18 @@ export class AppComponent {
 
   private recalculate() {
     let lastDay;
-    this.now = moment().utc().hours(12).minutes(0).seconds(0).milliseconds(0);
+    this.now = moment()
+      .utc()
+      .hours(12)
+      .minutes(0)
+      .seconds(0)
+      .milliseconds(0);
     this.today = this.now.format(this.dateFormat);
     lastDay = this.calculateLastDay();
     this.lastDayCalculated = lastDay.format(this.dateFormat);
-    this.calculateDaysRemaining(lastDay);    
+    this.calculateDaysRemaining(lastDay);
   }
-  
+
   private calculateLastDay() {
     let lastDay;
     let isHoliday: boolean;
@@ -136,6 +138,9 @@ export class AppComponent {
       // console.log(lastDay, hoursFree);
     }
 
+    while (lastDay.day() === 0 || lastDay.day() === 6) {
+      lastDay.add(-1, "days");
+    }
     return lastDay;
   }
 
@@ -148,17 +153,17 @@ export class AppComponent {
     // console.log(currentDay, ' -> ', lastDay);
     while (currentDay.isBefore(lastDay)) {
       isFreeDay = false;
-      if ((currentDay.day() === 0) || (currentDay.day() === 6)) {
+      if (currentDay.day() === 0 || currentDay.day() === 6) {
         isFreeDay = true;
       }
-      if (! isFreeDay) {
+      if (!isFreeDay) {
         for (let holiday of holidays) {
-            if (currentDay.isSame(holiday, "day")) {
-              // this is a holiday
-              isFreeDay = true;
-              // console.log("found holiday: ", currentDay);
-            }
+          if (currentDay.isSame(holiday, "day")) {
+            // this is a holiday
+            isFreeDay = true;
+            // console.log("found holiday: ", currentDay);
           }
+        }
       }
       if (!isFreeDay) {
         if (vacation > 0) {
