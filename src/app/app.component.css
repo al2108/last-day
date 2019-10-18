@@ -1,11 +1,11 @@
 :host {
   font-family: Roboto;
   font-size: 13px;
-  display :grid;
-  grid-template-columns: auto;
+  display: grid;
+  grid-template-columns: 330px;
   grid-template-rows: auto auto auto;
   grid-row-gap: 10px;
-  grid-column-gap: 15px;
+  grid-column-gap: 10px;
   align-items: center;
   justify-items: stretch;
 }
