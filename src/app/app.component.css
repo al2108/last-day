@@ -13,20 +13,20 @@
 h1 {
   margin: 0;
   margin-top: 10px;
-  margin-left: 10px;
+  margin-left: 5px;
   font-size: 28px;
   color: #444444;
   text-shadow: 0 0 4px #00ff00;
 }
 
 div {
-  margin: 10px;
+  margin: 5px;
   padding: 10px;
   display: grid;
   grid-column-gap: 10px;
   grid-row-gap: 10px;
   align-items: center;
-  justify-items: center;
+  justify-items: end;
   background-color: #dddddd;
   border: 1px solid rgba(0,0,0,0.75);
   box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
@@ -38,7 +38,8 @@ div {
 }
 
 .bottom {
-  grid-template-columns: auto suto;
+  grid-template-columns: auto 70px;
+  grid-column-gap: 20px;
   grid-template-rows: repeat(4, auto);
 }
 
@@ -55,16 +56,17 @@ p {
 }
 
 label {
+  font-size: 100%;
   grid-column: 1;
   justify-self: end;
   color: #444444;
 }
 
 input {
+  width: 70px;
   grid-column: 2;
   padding: 4px;
   font-size: 100%;
-  width: 70px;
   border-radius: 5px;
 }
 
