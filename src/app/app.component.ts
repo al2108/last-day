@@ -75,7 +75,7 @@ export class AppComponent {
   public daysRemaining: number;
   private now;
   private modelChanged: Subject<any>;
-  private readonly dateFormat = "DD.MM.YYYY";
+  private readonly dateFormat = "ddd DD.MM.YYYY";
   private readonly lastDay = "2023-09-30T12:00:00+00:00";
   private readonly hoursPerDay = 7;
 
