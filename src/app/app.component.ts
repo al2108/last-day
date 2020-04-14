@@ -1,7 +1,7 @@
 import { Component } from "@angular/core";
 import { Subject, Observable } from "rxjs";
 import { debounceTime, distinctUntilChanged } from "rxjs/operators";
-const moment = require("moment");
+import moment from 'moment';
 
 const holidays = [
   moment("2019-11-01T12:00:00+00:00"),
@@ -90,7 +90,7 @@ export class AppComponent {
   public onReset() {
     this.hoursLongTermInitial = 530;
     this.daysVacation2023 = (30 / 12) * 9;
-    this.daysVacationBefore2023 = 10 + 30 + 30 + 30;
+    this.daysVacationBefore2023 = 29 + 30 + 30;
     this.recalculate();
   }
 
