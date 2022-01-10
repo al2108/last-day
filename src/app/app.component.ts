@@ -1,69 +1,69 @@
-import { Component } from "@angular/core";
-import { Subject, Observable } from "rxjs";
-import { debounceTime, distinctUntilChanged } from "rxjs/operators";
-import moment from "moment";
+import { Component } from '@angular/core';
+import { Subject, Observable } from 'rxjs';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import moment from 'moment';
 
 const holidays = [
-  moment("2019-11-01T12:00:00+00:00"),
-  moment("2019-12-25T12:00:00+00:00"),
-  moment("2019-12-26T12:00:00+00:00"),
+  moment('2019-11-01T12:00:00+00:00'),
+  moment('2019-12-25T12:00:00+00:00'),
+  moment('2019-12-26T12:00:00+00:00'),
 
-  moment("2020-01-01T12:00:00+00:00"),
-  moment("2020-01-06T12:00:00+00:00"),
-  moment("2020-04-10T12:00:00+00:00"),
-  moment("2020-04-13T12:00:00+00:00"),
-  moment("2020-05-01T12:00:00+00:00"),
-  moment("2020-05-21T12:00:00+00:00"),
-  moment("2020-06-01T12:00:00+00:00"),
-  moment("2020-06-11T12:00:00+00:00"),
-  moment("2020-10-03T12:00:00+00:00"),
-  moment("2020-11-01T12:00:00+00:00"),
-  moment("2020-12-25T12:00:00+00:00"),
-  moment("2020-12-26T12:00:00+00:00"),
+  moment('2020-01-01T12:00:00+00:00'),
+  moment('2020-01-06T12:00:00+00:00'),
+  moment('2020-04-10T12:00:00+00:00'),
+  moment('2020-04-13T12:00:00+00:00'),
+  moment('2020-05-01T12:00:00+00:00'),
+  moment('2020-05-21T12:00:00+00:00'),
+  moment('2020-06-01T12:00:00+00:00'),
+  moment('2020-06-11T12:00:00+00:00'),
+  moment('2020-10-03T12:00:00+00:00'),
+  moment('2020-11-01T12:00:00+00:00'),
+  moment('2020-12-25T12:00:00+00:00'),
+  moment('2020-12-26T12:00:00+00:00'),
 
-  moment("2021-01-01T12:00:00+00:00"),
-  moment("2021-01-06T12:00:00+00:00"),
-  moment("2021-04-02T12:00:00+00:00"),
-  moment("2021-04-05T12:00:00+00:00"),
-  moment("2021-05-01T12:00:00+00:00"),
-  moment("2021-05-13T12:00:00+00:00"),
-  moment("2021-05-24T12:00:00+00:00"),
-  moment("2021-06-03T12:00:00+00:00"),
-  moment("2021-10-03T12:00:00+00:00"),
-  moment("2021-11-01T12:00:00+00:00"),
-  moment("2021-12-25T12:00:00+00:00"),
-  moment("2021-12-26T12:00:00+00:00"),
+  moment('2021-01-01T12:00:00+00:00'),
+  moment('2021-01-06T12:00:00+00:00'),
+  moment('2021-04-02T12:00:00+00:00'),
+  moment('2021-04-05T12:00:00+00:00'),
+  moment('2021-05-01T12:00:00+00:00'),
+  moment('2021-05-13T12:00:00+00:00'),
+  moment('2021-05-24T12:00:00+00:00'),
+  moment('2021-06-03T12:00:00+00:00'),
+  moment('2021-10-03T12:00:00+00:00'),
+  moment('2021-11-01T12:00:00+00:00'),
+  moment('2021-12-25T12:00:00+00:00'),
+  moment('2021-12-26T12:00:00+00:00'),
 
-  moment("2022-01-01T12:00:00+00:00"),
-  moment("2022-01-06T12:00:00+00:00"),
-  moment("2022-04-15T12:00:00+00:00"),
-  moment("2022-04-18T12:00:00+00:00"),
-  moment("2022-05-01T12:00:00+00:00"),
-  moment("2022-05-26T12:00:00+00:00"),
-  moment("2022-06-06T12:00:00+00:00"),
-  moment("2022-06-16T12:00:00+00:00"),
-  moment("2022-10-03T12:00:00+00:00"),
-  moment("2022-11-01T12:00:00+00:00"),
-  moment("2022-12-25T12:00:00+00:00"),
-  moment("2022-12-26T12:00:00+00:00"),
+  moment('2022-01-01T12:00:00+00:00'),
+  moment('2022-01-06T12:00:00+00:00'),
+  moment('2022-04-15T12:00:00+00:00'),
+  moment('2022-04-18T12:00:00+00:00'),
+  moment('2022-05-01T12:00:00+00:00'),
+  moment('2022-05-26T12:00:00+00:00'),
+  moment('2022-06-06T12:00:00+00:00'),
+  moment('2022-06-16T12:00:00+00:00'),
+  moment('2022-10-03T12:00:00+00:00'),
+  moment('2022-11-01T12:00:00+00:00'),
+  moment('2022-12-25T12:00:00+00:00'),
+  moment('2022-12-26T12:00:00+00:00'),
 
-  moment("2023-01-01T12:00:00+00:00"),
-  moment("2023-01-06T12:00:00+00:00"),
-  moment("2023-04-07T12:00:00+00:00"),
-  moment("2023-04-10T12:00:00+00:00"),
-  moment("2023-05-18T12:00:00+00:00"),
-  moment("2023-05-29T12:00:00+00:00"),
-  moment("2023-06-08T12:00:00+00:00"),
-  moment("2023-10-03T12:00:00+00:00"),
-  moment("2023-11-01T12:00:00+00:00"),
-  moment("2023-12-25T12:00:00+00:00"),
-  moment("2023-12-26T12:00:00+00:00")
+  moment('2023-01-01T12:00:00+00:00'),
+  moment('2023-01-06T12:00:00+00:00'),
+  moment('2023-04-07T12:00:00+00:00'),
+  moment('2023-04-10T12:00:00+00:00'),
+  moment('2023-05-18T12:00:00+00:00'),
+  moment('2023-05-29T12:00:00+00:00'),
+  moment('2023-06-08T12:00:00+00:00'),
+  moment('2023-10-03T12:00:00+00:00'),
+  moment('2023-11-01T12:00:00+00:00'),
+  moment('2023-12-25T12:00:00+00:00'),
+  moment('2023-12-26T12:00:00+00:00'),
 ];
 
 @Component({
-  selector: "my-app",
-  templateUrl: "./app.component.html",
-  styleUrls: ["./app.component.css"]
+  selector: 'my-app',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
   public hoursLongTermInitial: number;
@@ -75,8 +75,8 @@ export class AppComponent {
   public daysRemaining: number;
   private now;
   private modelChanged: Subject<any>;
-  private readonly dateFormat = "ddd DD.MM.YYYY";
-  private readonly lastDay = "2023-09-30T12:00:00+00:00";
+  private readonly dateFormat = 'ddd DD.MM.YYYY';
+  private readonly lastDay = '2023-09-30T12:00:00+00:00';
   private readonly hoursPerDay = 7;
 
   constructor() {
@@ -90,7 +90,7 @@ export class AppComponent {
   public onReset() {
     this.hoursLongTermInitial = 530;
     this.daysVacation2023 = (30 / 12) * 9;
-    this.daysVacationBefore2023 = 27 + 30;
+    this.daysVacationBefore2023 = 30;
     this.recalculate();
   }
 
@@ -100,12 +100,7 @@ export class AppComponent {
 
   private recalculate() {
     let lastDay;
-    this.now = moment()
-      .utc()
-      .hours(12)
-      .minutes(0)
-      .seconds(0)
-      .milliseconds(0);
+    this.now = moment().utc().hours(12).minutes(0).seconds(0).milliseconds(0);
     this.today = this.now.format(this.dateFormat);
     lastDay = this.calculateLastDay();
     this.lastDayCalculated = lastDay.format(this.dateFormat);
@@ -124,7 +119,7 @@ export class AppComponent {
         // this is not a sunday or saturday
         isHoliday = false;
         for (let holiday of holidays) {
-          if (lastDay.isSame(holiday, "day")) {
+          if (lastDay.isSame(holiday, 'day')) {
             // this is a holiday
             isHoliday = true;
             // console.log("found holiday: ", lastDay);
@@ -134,11 +129,11 @@ export class AppComponent {
           hoursFree -= this.hoursPerDay;
         }
       }
-      lastDay.add(-1, "days");
+      lastDay.add(-1, 'days');
       // console.log(lastDay, hoursFree);
     }
     while (lastDay.day() === 0 || lastDay.day() === 6) {
-      lastDay.add(-1, "days");
+      lastDay.add(-1, 'days');
     }
 
     return lastDay;
@@ -158,7 +153,7 @@ export class AppComponent {
       }
       if (!isFreeDay) {
         for (let holiday of holidays) {
-          if (currentDay.isSame(holiday, "day")) {
+          if (currentDay.isSame(holiday, 'day')) {
             // this is a holiday
             isFreeDay = true;
             // console.log("found holiday: ", currentDay);
@@ -174,7 +169,7 @@ export class AppComponent {
       if (!isFreeDay) {
         this.daysRemaining++;
       }
-      currentDay.add(1, "days");
+      currentDay.add(1, 'days');
     }
     // console.log(currentDay, lastDay, currentDay.isBefore(lastDay));
   }
