@@ -66,6 +66,7 @@ const holidays = [
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
+  public hoursShortTermInitial: number;
   public hoursLongTermInitial: number;
   public daysVacation2023: number;
   public daysVacationBefore2023: number;
@@ -88,6 +89,7 @@ export class AppComponent {
   }
 
   public onReset() {
+    this.hoursShortTermInitial = 0;
     this.hoursLongTermInitial = 530;
     this.daysVacation2023 = (30 / 12) * 9;
     this.daysVacationBefore2023 = 30;
@@ -142,7 +144,8 @@ export class AppComponent {
   private calculateDaysRemaining(lastDay) {
     let isFreeDay: boolean;
     let currentDay = moment(this.now);
-    let vacation = this.daysVacationBefore2023;
+    let vacation =
+      this.daysVacationBefore2023 + Math.floor(this.hoursShortTermInitial / 7);
 
     this.daysRemaining = 0;
     // console.log(currentDay, ' -> ', lastDay);
