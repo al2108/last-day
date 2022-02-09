@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { Subject, Observable } from 'rxjs';
-import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { Subject } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
 import moment from 'moment';
 
 const holidays = [
