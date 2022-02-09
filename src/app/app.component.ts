@@ -78,7 +78,7 @@ export class AppComponent {
   }
 
   public onModelChange() {
-    this.modelChanged.next();
+    this.modelChanged.next(null);
   }
 
   private recalculate() {
