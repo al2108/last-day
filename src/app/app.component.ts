@@ -4,25 +4,6 @@ import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import moment from 'moment';
 
 const holidays = [
-  moment('2019-11-01T12:00:00+00:00'),
-  moment('2019-12-25T12:00:00+00:00'),
-  moment('2019-12-26T12:00:00+00:00'),
-
-  moment('2020-01-01T12:00:00+00:00'),
-  moment('2020-01-06T12:00:00+00:00'),
-  moment('2020-04-10T12:00:00+00:00'),
-  moment('2020-04-13T12:00:00+00:00'),
-  moment('2020-05-01T12:00:00+00:00'),
-  moment('2020-05-21T12:00:00+00:00'),
-  moment('2020-06-01T12:00:00+00:00'),
-  moment('2020-06-11T12:00:00+00:00'),
-  moment('2020-10-03T12:00:00+00:00'),
-  moment('2020-11-01T12:00:00+00:00'),
-  moment('2020-12-25T12:00:00+00:00'),
-  moment('2020-12-26T12:00:00+00:00'),
-
-  moment('2021-01-01T12:00:00+00:00'),
-  moment('2021-01-06T12:00:00+00:00'),
   moment('2021-04-02T12:00:00+00:00'),
   moment('2021-04-05T12:00:00+00:00'),
   moment('2021-05-01T12:00:00+00:00'),
@@ -92,7 +73,7 @@ export class AppComponent {
     this.hoursShortTermInitial = 0;
     this.hoursLongTermInitial = 530;
     this.daysVacation2023 = (30 / 12) * 9;
-    this.daysVacationBefore2023 = 30 + 5;
+    this.daysVacationBefore2023 = 30 + 10;
     this.recalculate();
   }
 
