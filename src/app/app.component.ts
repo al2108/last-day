@@ -73,7 +73,7 @@ export class AppComponent {
     this.hoursShortTermInitial = 0;
     this.hoursLongTermInitial = 530;
     this.daysVacation2023 = (30 / 12) * 9;
-    this.daysVacationBefore2023 = 30 + 10;
+    this.daysVacationBefore2023 = 30;
     this.recalculate();
   }
 
