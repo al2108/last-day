@@ -72,7 +72,7 @@ export class AppComponent {
   public onReset() {
     this.hoursShortTermInitial = 0;
     this.hoursLongTermInitial = 530;
-    this.daysVacation2023 = (30 / 12) * 9;
+    this.daysVacation2023 = 23;
     this.daysVacationBefore2023 = 8;
     this.recalculate();
   }
