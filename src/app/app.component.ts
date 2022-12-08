@@ -70,7 +70,7 @@ export class AppComponent {
   }
 
   public onReset() {
-    this.hoursShortTermInitial = 23;
+    this.hoursShortTermInitial = 30;
     this.hoursLongTermInitial = 530;
     this.daysVacation2023 = 23;
     this.daysVacationBefore2023 = 1;
