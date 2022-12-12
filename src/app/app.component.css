@@ -28,13 +28,13 @@ div {
   align-items: center;
   justify-items: end;
   background-color: #dddddd;
-  border: 1px solid rgba(0,0,0,0.75);
-  box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+  border: 1px solid rgba(0, 0, 0, 0.75);
+  box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
 }
 
 .top {
   grid-template-columns: auto auto;
-  grid-template-rows: repeat(4, 1em);
+  grid-template-rows: repeat(5, 1em);
 }
 
 .bottom {
@@ -89,8 +89,8 @@ button {
 button:hover {
   background: #434343;
   letter-spacing: 1px;
-  -webkit-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
-  -moz-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
-  box-shadow: 5px 40px -10px rgba(0,0,0,0.57);
+  -webkit-box-shadow: 0px 5px 40px -10px rgba(0, 0, 0, 0.57);
+  -moz-box-shadow: 0px 5px 40px -10px rgba(0, 0, 0, 0.57);
+  box-shadow: 5px 40px -10px rgba(0, 0, 0, 0.57);
   transition: all 0.4s ease 0s;
 }

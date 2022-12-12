@@ -118,7 +118,7 @@ export class AppComponent {
       }
       this.lastDayWorkingHours = this.hoursPerDay + hoursFree;
     }
-    console.log(lastDay, hoursFree);
+    console.log('hoursFree', hoursFree);
     while (lastDay.day() === 0 || lastDay.day() === 6) {
       lastDay.add(-1, 'days');
     }
@@ -129,8 +129,17 @@ export class AppComponent {
   private calculateDaysRemaining(lastDay) {
     let isFreeDay: boolean;
     let currentDay = moment(this.now);
-    let vacation =
-      this.daysVacationBefore2023 + Math.floor(this.hoursShortTermInitial / 7);
+    let shortTermDaysOff = Math.floor(
+      this.hoursShortTermInitial / this.hoursPerDay
+    );
+    let shortTermHoursRest =
+      this.hoursShortTermInitial -
+      Math.floor(this.hoursShortTermInitial / this.hoursPerDay) *
+        this.hoursPerDay;
+    let vacation = this.daysVacationBefore2023 + shortTermDaysOff;
+    this.lastDayWorkingHours -= shortTermHoursRest;
+    console.log('shortTermDaysOff: ', shortTermDaysOff);
+    console.log('shortTermHoursRest: ', shortTermHoursRest);
 
     this.daysRemaining = 0;
     // console.log(currentDay, ' -> ', lastDay);
