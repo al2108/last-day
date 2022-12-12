@@ -55,6 +55,7 @@ export class AppComponent {
   public lastDayCalculated: string;
   public today: string;
   public daysRemaining: number;
+  public lastDayWorkingHours: number;
   private now;
   private modelChanged: Subject<any>;
   private readonly dateFormat = 'ddd DD.MM.YYYY';
@@ -112,9 +113,12 @@ export class AppComponent {
           hoursFree -= this.hoursPerDay;
         }
       }
-      lastDay.add(-1, 'days');
-      // console.log(lastDay, hoursFree);
+      if (hoursFree >= 0) {
+        lastDay.add(-1, 'days');
+      }
+      this.lastDayWorkingHours = this.hoursPerDay + hoursFree;
     }
+    console.log(lastDay, hoursFree);
     while (lastDay.day() === 0 || lastDay.day() === 6) {
       lastDay.add(-1, 'days');
     }
