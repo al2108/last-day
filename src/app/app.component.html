@@ -19,26 +19,4 @@
     [(ngModel)]="hoursShortTermInitial"
     (ngModelChange)="onModelChange()"
   />
-  <label>Long Term hours:</label>
-  <input
-    type="number"
-    [(ngModel)]="hoursLongTermInitial"
-    (ngModelChange)="onModelChange()"
-  />
-
-  <label>Vacation days before 2023:</label>
-  <input
-    type="number"
-    [(ngModel)]="daysVacationBefore2023"
-    (ngModelChange)="onModelChange()"
-  />
-
-  <label>Vacation days 2023:</label>
-  <input
-    type="number"
-    [(ngModel)]="daysVacation2023"
-    (ngModelChange)="onModelChange()"
-  />
-
-  <button (click)="onReset()">Reset</button>
 </div>
